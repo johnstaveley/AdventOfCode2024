@@ -1,42 +1,31 @@
-﻿// See https://aka.ms/new-console-template for more information
-using AdventOfCode.Day1;
-
-public static class Day1
+﻿public static class Day1
 {
     public static void Execute()
     {
         string filePath = "Day1/Input.txt";
-        var elves = new List<Elf>();
-        var index = 1;
-        var elf = new Elf() { Id = index++ };
         try
         {
-            // Read all lines from the file
             string[] lines = File.ReadAllLines(filePath);
-
-            // Print each line to the console
-            foreach (string line in lines)
+            Console.WriteLine($"Read {lines.Length} lines from {filePath}");
+            var leftList = new List<int>();
+            var rightList = new List<int>();
+            foreach (var line in lines)
             {
-                if (string.IsNullOrEmpty(line))
+                if (!string.IsNullOrEmpty(line))
                 {
-                    elves.Add(elf);
-                    elf = new Elf() { Id = index++ };
-                    continue;
-                } else
-                {
-                    elf.CaloriesCollected.Add(int.Parse(line));
+                    var terms = line.Split(" ").Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
+                    leftList.Add(int.Parse(terms[0].Trim(' ')));
+                    rightList.Add(int.Parse(terms[1].Trim(' ')));
                 }
             }
-            foreach (var e in elves)
+            var sortedLeftList = leftList.OrderBy(a => a).ToList();
+            var sortedRightList = rightList.OrderBy(a => a).ToList();
+            var differences = new List<int>();
+            for (int i = 0; i < sortedLeftList.Count; i++)
             {
-                Console.WriteLine($"Elf {e.Id} collected {e.TotalCalories} Calories");
+                differences.Add(Math.Abs(sortedRightList[i] - sortedLeftList[i]));
             }
-            var elvesSortedByCalories = elves.OrderByDescending(e => e.TotalCalories);
-            var maxCalories = elves.Max(e => e.TotalCalories);
-            var totalOfTopThree = elvesSortedByCalories.Take(3).Sum(e => e.TotalCalories);
-            var elfWithMaxCalories = elves.First(e => e.TotalCalories == maxCalories);
-            Console.WriteLine($"Elf {elfWithMaxCalories.Id} collected the most calories: {maxCalories}");
-            Console.WriteLine($"The total of the top three elves is {totalOfTopThree}");
+            Console.WriteLine($"Total of differences is {differences.Sum()}");
         }
         catch (Exception ex)
         {
