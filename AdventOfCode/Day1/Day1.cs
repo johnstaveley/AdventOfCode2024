@@ -26,6 +26,12 @@
                 differences.Add(Math.Abs(sortedRightList[i] - sortedLeftList[i]));
             }
             Console.WriteLine($"Total of differences is {differences.Sum()}");
+            var totalSimilarityScore = 0;
+            foreach(var item in sortedLeftList)
+            {
+                totalSimilarityScore += sortedRightList.Count(a => a == item) * item;
+            }
+            Console.WriteLine($"Total similarity score is {totalSimilarityScore}");
         }
         catch (Exception ex)
         {
