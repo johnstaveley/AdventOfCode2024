@@ -4,7 +4,7 @@ public static class Day7
 {
     public static void Execute()
     {
-        string filePath = "Day7/Input.txt";
+        string filePath = "Day7/Test.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -14,7 +14,7 @@ public static class Day7
             foreach (var line in lines)
             {
                 var equation = new CalibrationEquation();
-                 var terms = line.Split(':');
+                var terms = line.Split(':');
                 equation.Total = Int64.Parse(terms[0]);
                 equation.Terms = terms[1].Split(' ').Where(a => !string.IsNullOrEmpty(a)).Select(b => Int64.Parse(b.Trim(' '))).ToList();
                 equations.Add(equation);
@@ -24,7 +24,7 @@ public static class Day7
             {
                 Console.WriteLine($"Equation: {equation.Total} = {equation.CanBeComputed()}");
             }
-            Console.WriteLine($"Total Equations which can be calculated: {totalEquationsCalculated}");
+            Console.WriteLine($"Total Equations which can be calculated: {totalEquationsCalculated} out of {equations.Count}");
         }
         catch (Exception ex)
         {
