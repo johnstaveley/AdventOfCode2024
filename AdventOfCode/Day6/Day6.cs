@@ -17,12 +17,12 @@ public static class Day6
             var initialGuardLocation = map.GuardLocation();
             guard.LocationX = initialGuardLocation.Item1;
             guard.LocationY = initialGuardLocation.Item2;
-            Console.WriteLine($"Guard location is {guard.LocationX}:{guard.LocationY}");
             var gameIsOn = true;
+            var index = 0;
             do
             {
                 var nextLocation = guard.NextSquare();
-                gameIsOn = !map.IsOffGrid(nextLocation);
+                gameIsOn = !map.IsOffGrid(nextLocation) && !guard.IsInLoop(index);
                 if (gameIsOn)
                 {
                     var nextLocationType = map.Grid[nextLocation.Item1, nextLocation.Item2];
@@ -33,7 +33,7 @@ public static class Day6
                             guard.TurnsRight();
                             break;
                         default:
-                            guard.MovesForward();
+                            guard.MovesForward(index++);
                             break;
                     }
                 }

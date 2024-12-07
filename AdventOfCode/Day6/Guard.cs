@@ -1,11 +1,13 @@
-﻿namespace AdventOfCode.Day6
+﻿using System;
+
+namespace AdventOfCode.Day6
 {
     public class Guard
     {
         public int LocationX { get; set; }
         public int LocationY { get; set; }
         public DirectionEnum Direction { get; set; } = DirectionEnum.North;
-        public List<Tuple<int, int>> DistinctPositions { get; set; } = [];
+        public List<Position> DistinctPositions { get; set; } = [];
 
         public Tuple<int, int> NextSquare()
         {
@@ -23,11 +25,21 @@
                     throw new NotImplementedException();
             }
         }
-        public void MovesForward()
+        public bool IsInLoop(int index)
         {
-            if (!DistinctPositions.Any(a => a.Item1 == LocationX && a.Item2 == LocationY) )
+            if (!DistinctPositions.Any()) return false;
+            var lastPosition = DistinctPositions.Last();
+            if (index - lastPosition.IndexVisited > 100)
             {
-                DistinctPositions.Add(new Tuple<int, int>(LocationX, LocationY));
+                return true;
+            }
+            return false;
+        }
+        public void MovesForward(int index)
+        {
+            if (!DistinctPositions.Any(a => a.LocationX == LocationX && a.LocationY == LocationY) )
+            {
+                DistinctPositions.Add(new Position(LocationX, LocationY, index));
             }
             switch (Direction)
             {
