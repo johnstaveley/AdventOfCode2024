@@ -2,7 +2,7 @@
 {
     public class Update
     {
-        public List<int> Pages { get; set; }
+        public List<int> Pages { get; set; } = [];
         public bool IsCorrectlyOrdered { get; set; } = true;
     }
 }

@@ -66,7 +66,18 @@ public static class Day5
             middlePageCount = 0;
             foreach (var update in updates.Where(a => !a.IsCorrectlyOrdered).ToList())
             {
-
+                var applicableRules = pageOrderingRules.Where(a => update.Pages.Contains(a.LeftPage) && update.Pages.Contains(a.RightPage)).ToList();
+                if (applicableRules.Count() > 0)
+                {
+                    var newList = update.Pages;
+                    foreach (var rule in applicableRules)
+                    {
+                        newList = rule.ApplyRule(newList);
+                    }
+                    update.Pages = newList;
+                }
+                var middlePageIndex = ((int)update.Pages.Count / 2);
+                middlePageCount += update.Pages[middlePageIndex];
             }
             Console.WriteLine($"Total middle page count of incorrectly ordered is {middlePageCount}");
 

@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode.Day5
+﻿using AdventOfCode.Utility;
+
+namespace AdventOfCode.Day5
 {
     public class PageOrderingRule
     {
@@ -15,5 +17,18 @@
             if (!pages.Contains(RightPage)) return true;
             return pages.IndexOf(LeftPage) < pages.IndexOf(RightPage);
         }
+        public List<int> ApplyRule(List<int> pages)
+        {
+            if (ArePagesValid(pages)) return pages;
+            var newList = pages;
+            do
+            {
+                var indexOfRightPage = pages.IndexOf(RightPage);
+                newList.Swap(indexOfRightPage, indexOfRightPage + 1);
+            }
+            while (!ArePagesValid(newList));
+            return newList;
+        }
+
     }
 }
