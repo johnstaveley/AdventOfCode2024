@@ -2,29 +2,46 @@
 {
     public class CalibrationEquation
     {
+        private string[] _possibleOperators = ["+", "*"];
+
         public Int64 Total { get; set; } = 0;
         public List<Int64> Terms { get; set; } = [];
         public List<string> Operators { get; set; } = [];
         public bool CanBeComputed()
         {
-            var possibleOperators = new string[] { "+", "*" };
+            var currentIndexOfOperator = 0;
             Operators = Terms.Select(a => "+").ToList();
-            foreach (var op in possibleOperators)
+            if (CanBeComputed(Operators, currentIndexOfOperator))
             {
-                var operatorIndex = 0;
-                var total = Terms.First();
-                Operators[operatorIndex] = op;
-                foreach (var term in Terms.Skip(1))
+                return true;
+            }
+            return false;
+        }
+        private bool CanBeComputed(List<string> operators, int currentIndexOfOperator)
+        {
+            var total = Terms.First();
+            var localOperators = operators.GetRange(0, operators.Count);
+            foreach (var op in _possibleOperators)
+            {
+                localOperators[currentIndexOfOperator] = op;
+                for (var i = 1; i < Terms.Count; i++)
                 {
-                    total = Operators[operatorIndex] == "+" ? total + term : total * term;
+                    total = localOperators[i - 1] == "+" ? total + Terms[i] : total * Terms[i];
                 }
                 if (total == Total)
                 {
                     return true;
                 }
-                operatorIndex++;
+                if (currentIndexOfOperator < operators.Count - 1)
+                {
+                    if (CanBeComputed(localOperators, currentIndexOfOperator + 1))
+                    {
+                        return true;
+                    }
+                }
             }
             return false;
+
         }
     }
 }
