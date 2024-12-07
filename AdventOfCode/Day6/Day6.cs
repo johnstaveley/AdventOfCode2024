@@ -5,7 +5,7 @@ public static class Day6
 {
     public static void Execute()
     {
-        string filePath = "Day6/Input.txt";
+        string filePath = "Day6/loop.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -19,10 +19,12 @@ public static class Day6
             guard.LocationY = initialGuardLocation.Item2;
             var gameIsOn = true;
             var index = 0;
+            var loopDetected = false;
             do
             {
                 var nextLocation = guard.NextSquare();
-                gameIsOn = !map.IsOffGrid(nextLocation) && !guard.IsInLoop(index);
+                loopDetected = guard.IsInLoop(index);
+                gameIsOn = !map.IsOffGrid(nextLocation) && !loopDetected;
                 if (gameIsOn)
                 {
                     var nextLocationType = map.Grid[nextLocation.Item1, nextLocation.Item2];
@@ -38,7 +40,7 @@ public static class Day6
                     }
                 }
             } while (gameIsOn);
-            Console.WriteLine($"Distinct positions {guard.DistinctPositions.Count + 1}");
+            Console.WriteLine($"Distinct positions {guard.DistinctPositions.Count + 1}, Loop detected: {loopDetected}");
         }
         catch (Exception ex)
         {
