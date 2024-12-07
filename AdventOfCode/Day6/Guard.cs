@@ -29,7 +29,7 @@ namespace AdventOfCode.Day6
         {
             if (!DistinctPositions.Any()) return false;
             var lastPosition = DistinctPositions.Last();
-            if (index - lastPosition.IndexVisited > 100)
+            if (index - lastPosition.IndexVisited > 1200)
             {
                 return true;
             }
