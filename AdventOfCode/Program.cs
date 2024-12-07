@@ -1,7 +1,7 @@
 ﻿Console.WriteLine();
 Console.WriteLine("Advent of code");
 Console.WriteLine();
-Day6.Execute();
+Day7.Execute();
 Console.WriteLine();
 Console.WriteLine("Press key to end");
 Console.WriteLine();
