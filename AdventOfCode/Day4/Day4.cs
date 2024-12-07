@@ -1,4 +1,6 @@
-﻿public static class Day4
+﻿using AdventOfCode.Utility;
+
+public static class Day4
 {
     public static void Execute()
     {
@@ -9,7 +11,7 @@
             Console.WriteLine($"Read {lines.Length} lines from {filePath}");
             int xmasFound = 0;
             int crossFound = 0;
-            var grid = GetGrid(lines);
+            var grid = ArrayExtensions.GetGrid(lines);
             var columns = grid.GetLength(0);
             var rows = grid.GetLength(1);
             for (int x = 0; x < columns; x++)
@@ -98,22 +100,5 @@
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
-    }
-    public static string[,] GetGrid(string[] lines)
-    {
-        var rows = lines.Length;
-        var cols = lines.Max(l => l.Length);
-        string[,] grid = new string[rows, cols];
-
-        // Populate the 2D grid
-        for (int y = 0; y < rows; y++)
-        {
-            char[] elements = lines[y].ToCharArray();
-            for (int x = 0; x < cols; x++)
-            {
-                grid[x, y] = elements[x].ToString();
-            }
-        }
-        return grid;
     }
 }
