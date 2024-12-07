@@ -4,7 +4,7 @@ public static class Day7
 {
     public static void Execute()
     {
-        string filePath = "Day7/Input.txt";
+        string filePath = "Day7/Test2.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
