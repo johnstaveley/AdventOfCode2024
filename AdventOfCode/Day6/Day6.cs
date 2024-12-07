@@ -10,6 +10,7 @@ public static class Day6
         {
             string[] lines = File.ReadAllLines(filePath);
             Console.WriteLine($"Read {lines.Length} lines from {filePath}");
+
             var map = new Map();
             map.Grid = ArrayExtensions.GetGrid(lines);
             var guard = new Guard();
@@ -25,6 +26,7 @@ public static class Day6
                 if (gameIsOn)
                 {
                     var nextLocationType = map.Grid[nextLocation.Item1, nextLocation.Item2];
+                    var previousDistinctPositions = guard.DistinctPositions.Count;
                     switch (nextLocationType)
                     {
                         case "#":
