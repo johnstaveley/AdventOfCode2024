@@ -5,6 +5,7 @@
         public int LocationX { get; set; }
         public int LocationY { get; set; }
         public DirectionEnum Direction { get; set; } = DirectionEnum.North;
+        public List<Tuple<int, int>> DistinctPositions { get; set; } = [];
 
         public Tuple<int, int> NextSquare()
         {
@@ -24,6 +25,10 @@
         }
         public void MovesForward()
         {
+            if (!DistinctPositions.Any(a => a.Item1 == LocationX && a.Item2 == LocationY) )
+            {
+                DistinctPositions.Add(new Tuple<int, int>(LocationX, LocationY));
+            }
             switch (Direction)
             {
                 case DirectionEnum.North:

@@ -17,7 +17,6 @@ public static class Day6
             guard.LocationX = initialGuardLocation.Item1;
             guard.LocationY = initialGuardLocation.Item2;
             Console.WriteLine($"Guard location is {guard.LocationX}:{guard.LocationY}");
-            var distinctPositions = 1;
             var gameIsOn = true;
             do
             {
@@ -33,12 +32,11 @@ public static class Day6
                             break;
                         default:
                             guard.MovesForward();
-                            distinctPositions++;
                             break;
                     }
                 }
             } while (gameIsOn);
-            Console.WriteLine($"Distinct positions {distinctPositions}");
+            Console.WriteLine($"Distinct positions {guard.DistinctPositions.Count + 1}");
         }
         catch (Exception ex)
         {
