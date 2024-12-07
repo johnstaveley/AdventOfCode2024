@@ -74,6 +74,22 @@ public static class Day5
                     {
                         newList = rule.ApplyRule(newList);
                     }
+                    foreach (var rule in applicableRules)
+                    {
+                        newList = rule.ApplyRule(newList);
+                    }
+                    foreach (var rule in applicableRules)
+                    {
+                        newList = rule.ApplyRule(newList);
+                    }
+                    foreach (var rule in applicableRules)
+                    {
+                        newList = rule.ApplyRule(newList);
+                    }
+                    foreach (var rule in applicableRules)
+                    {
+                        newList = rule.ApplyRule(newList);
+                    }
                     update.Pages = newList;
                 }
                 var middlePageIndex = ((int)update.Pages.Count / 2);
