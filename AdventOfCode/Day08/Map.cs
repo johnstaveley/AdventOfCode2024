@@ -1,6 +1,4 @@
-﻿using AdventOfCode.Day6;
-
-namespace AdventOfCode.Day8
+﻿namespace AdventOfCode.Day8
 {
     public class Map
     {
