@@ -5,7 +5,7 @@ public static class Day8
 {
     public static void Execute()
     {
-        string filePath = "Day8/Test.txt";
+        string filePath = "Day8/Input.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -58,7 +58,7 @@ public static class Day8
 
     private static List<Position> FindNearestIn(ref Map map, string searchingFor, int startX, int startY)
     {
-        var searchRadius = 5;
+        var searchRadius = map.Grid.GetLength(0)/ 2;
         var found = new List<Position>();
         for (int i = startX - searchRadius; i < startX + searchRadius; i++)
         {
