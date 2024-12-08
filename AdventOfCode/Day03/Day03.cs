@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 
-public static class Day3
+public static class Day03
 {
     public static void Execute()
     {
-        string filePath = "Day3/Input.txt";
+        string filePath = "Day03/Input.txt";
         try
         {
             // Read all lines from the file

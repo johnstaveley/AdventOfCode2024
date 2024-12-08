@@ -1,8 +1,8 @@
-﻿public static class Day1
+﻿public static class Day01
 {
     public static void Execute()
     {
-        string filePath = "Day1/Input.txt";
+        string filePath = "Day01/Input.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);

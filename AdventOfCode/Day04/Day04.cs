@@ -1,10 +1,10 @@
 ﻿using AdventOfCode.Utility;
 
-public static class Day4
+public static class Day04
 {
     public static void Execute()
     {
-        string filePath = "Day4/Input.txt";
+        string filePath = "Day04/Input.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);

@@ -1,10 +1,10 @@
 ﻿using AdventOfCode.Day2;
 
-public static class Day2
+public static class Day02
 {
     public static void Execute()
     {
-        string filePath = "Day2/Input.txt";
+        string filePath = "Day02/Input.txt";
         var reports = new List<Report>();
         var index = 1;
         try
