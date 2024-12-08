@@ -17,6 +17,7 @@
                     grid[x, y] = elements[x].ToString();
                 }
             }
+            Console.WriteLine($"Grid loaded of size {grid.GetLength(0)}:{grid.GetLength(1)}");
             return grid;
         }
     }

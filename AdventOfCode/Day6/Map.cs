@@ -17,6 +17,7 @@
             }
             return null;
         }
+        public string[,] Results { get; set; }
         public bool IsOffGrid(Tuple<int, int> location)
         {
             return location.Item1 < 0 || location.Item1 >= Grid.GetLength(0) || location.Item2 < 0 || location.Item2 >= Grid.GetLength(1);
