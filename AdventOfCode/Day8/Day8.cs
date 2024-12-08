@@ -29,20 +29,29 @@ public static class Day8
                             {
                                 var offsetX = item.LocationX - i;
                                 var offsetY = item.LocationY - j;
-                                var firstAntiNodeX = i + offsetX;
-                                var firstAntiNodeY = j + offsetY;
-                                if (!map.IsOffGrid(firstAntiNodeX, firstAntiNodeY) && map.Grid[firstAntiNodeX, firstAntiNodeY] != currentLocation )
+                                var antiNodeX = i + offsetX;
+                                var antiNodeY = j + offsetY;
+                                do
                                 {
-                                    map.Results[firstAntiNodeX, firstAntiNodeY] = "#";
-                                    Console.WriteLine($"Antinode found at {firstAntiNodeX+1}:{firstAntiNodeY+1}");
-                                }
-                                var secondAntiNodeX = i - offsetX;
-                                var secondAntiNodeY = j - offsetY;
-                                if (!map.IsOffGrid(secondAntiNodeX, secondAntiNodeY) && map.Grid[secondAntiNodeX, secondAntiNodeY] != currentLocation)
+                                    if (!map.IsOffGrid(antiNodeX, antiNodeY))
+                                    {
+                                        map.Results[antiNodeX, antiNodeY] = "#";
+                                    }
+                                    antiNodeX += offsetX;
+                                    antiNodeY += offsetY;
+                                } while (!map.IsOffGrid(antiNodeX, antiNodeY));
+                                antiNodeX = i - offsetX;
+                                antiNodeY = j - offsetY;
+                                do
                                 {
-                                    map.Results[secondAntiNodeX, secondAntiNodeY] = "#";
-                                    Console.WriteLine($"Antinode found at {secondAntiNodeX+1}:{secondAntiNodeY+1}");
-                                }
+                                    if (!map.IsOffGrid(antiNodeX, antiNodeY))
+                                    {
+                                        map.Results[antiNodeX, antiNodeY] = "#";
+                                    }
+                                    antiNodeX -= offsetX;
+                                    antiNodeY -= offsetY;
+                                } while (!map.IsOffGrid(antiNodeX, antiNodeY));
+
                             }
                         }
                     }
@@ -58,7 +67,7 @@ public static class Day8
 
     private static List<Position> FindNearestIn(ref Map map, string searchingFor, int startX, int startY)
     {
-        var searchRadius = map.Grid.GetLength(0)/ 2;
+        var searchRadius = (map.Grid.GetLength(0)/ 2) + 10;
         var found = new List<Position>();
         for (int i = startX - searchRadius; i < startX + searchRadius; i++)
         {

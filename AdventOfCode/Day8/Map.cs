@@ -24,12 +24,21 @@ namespace AdventOfCode.Day8
         public void CountResults()
         {
             var resultCount = 0;
-            for (int i = 0; i < Results.GetLength(0); i++)
+            for (int j = 0; j < Results.GetLength(1); j++)
             {
-                for (int j = 0; j < Results.GetLength(1); j++)
+                for (int i = 0; i < Results.GetLength(0); i++)
                 {
-                    resultCount += Results[i, j] == "#" ? 1 : 0;
+                    if (Results[i, j] == "#")
+                    {
+                        resultCount++;
+                        //Console.WriteLine($"Antinode found at {i + 1}:{j + 1}");
+                        Console.Write("#");
+                    } else
+                    {
+                        Console.Write(".");
+                    }
                 }
+                Console.WriteLine();
             }
             Console.WriteLine($"Result count: {resultCount}");
         }
