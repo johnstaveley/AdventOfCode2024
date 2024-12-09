@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Day5
+﻿namespace AdventOfCode.Day05
 {
     public class Update
     {

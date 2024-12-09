@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Day2
+﻿namespace AdventOfCode.Day02
 {
     internal class Report
     {

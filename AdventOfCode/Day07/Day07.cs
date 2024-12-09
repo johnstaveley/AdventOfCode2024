@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Day7;
+﻿using AdventOfCode.Day07;
 
 public static class Day07
 {

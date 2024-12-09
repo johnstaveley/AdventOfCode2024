@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Day8
+﻿namespace AdventOfCode.Day08
 {
     public class Position
     {

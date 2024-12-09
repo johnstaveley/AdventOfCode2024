@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using AdventOfCode.Day1;
+using AdventOfCode.Day01;
 
 public static class Day1Maybe
 {

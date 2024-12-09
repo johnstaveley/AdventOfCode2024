@@ -1,10 +1,11 @@
-﻿using AdventOfCode.Utility;
+﻿using AdventOfCode.Day09;
+using AdventOfCode.Utility;
 
 public static class Day09
 {
     public static void Execute()
     {
-        string filePath = "Day09/Input.txt";
+        string filePath = "Day09/Test.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -13,34 +14,55 @@ public static class Day09
             var currentId = 0;
             var isBlock = true;
             var blocks = new List<int?>();
-            foreach(var item in diskmap)
+            var indices = new List<FileIndex>();
+            foreach (var sizeOnDisk in diskmap)
             {
                 if (isBlock)
                 {
-                    blocks.AddRange(Enumerable.Repeat((int?) currentId, item));
+                    indices.Add(new FileIndex { Id = currentId, Index = blocks.Count + 1, IsBlock = true, Size = sizeOnDisk });
+                    blocks.AddRange(Enumerable.Repeat((int?)currentId, sizeOnDisk));
                     currentId++;
                 }
                 else
                 {
-                    blocks.AddRange(Enumerable.Repeat((int?) null, item));
+                    indices.Add(new FileIndex { Id = null, Index = blocks.Count + 1, IsBlock = false, Size = sizeOnDisk });
+                    blocks.AddRange(Enumerable.Repeat((int?)null, sizeOnDisk));
                 }
-                //if (currentId == 10) currentId = 0;
                 isBlock = !isBlock;
             }
-            //PrintBlocks(blocks);
+            PrintBlocks(blocks);
             for (int i = blocks.Count - 1; i >= 0; i--)
             {
                 var currentBlock = blocks[i];
                 if (currentBlock.HasValue)
                 {
                     var locationOfFirstNull = blocks.IndexOf(null);
-                    if (locationOfFirstNull < i) {
+                    if (locationOfFirstNull < i)
+                    {
                         blocks.Swap(i, locationOfFirstNull);
-                        //PrintBlocks(blocks);
+                        PrintBlocks(blocks);
                     }
                 }
             }
-            //PrintBlocks(blocks);
+            /*            for (int index = indices.Count - 1; index >= 0; index--)
+                        {
+                            var currentIndex = indices[index];
+                            if (currentIndex.IsBlock) {
+                                var indexToMoveTo = indices.FirstOrDefault(a => !a.IsBlock && a.Size >= currentIndex.Size);
+                                if (indexToMoveTo != null && index > indexToMoveTo.Index)
+                                {
+                                    // Swap index
+                                    indices.Swap(index, indexToMoveTo.Index);
+                                    // SWap values on disk
+                                    for (int j = 0; j < currentIndex.Size; j++)
+                                    {
+                                        blocks.Swap(currentIndex.Index + j - 1, indexToMoveTo.Index + j - 1);
+                                    }
+                                    PrintBlocks(blocks);
+                                }
+                            }
+                        }
+                        PrintBlocks(blocks);*/
             Console.WriteLine($"Checksum: {GetChecksum(blocks)}");
         }
         catch (Exception ex)
