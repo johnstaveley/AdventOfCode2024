@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Model;
+﻿using AdventOfCode.Day10;
+using AdventOfCode.Model;
 
 public static class Day10
 {
@@ -22,16 +23,17 @@ public static class Day10
                     }
                 }
             }
-            int score = 0;
-            ProcessNextSteps(map, paths, ref score);
-            Console.WriteLine($"Found {paths.Count} starting points with score {score}");
+            var trailEnds = new List<Location>();
+            ProcessNextSteps(map, paths, trailEnds);
+            var distinctEnds = trailEnds.DistinctBy(m => new { m.X, m.Y }).ToList();
+            Console.WriteLine($"Found {paths.Count} starting points with score {distinctEnds.Count}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-    public static void ProcessNextSteps(Map map, List<Location> paths, ref int score)
+    public static void ProcessNextSteps(Map map, List<Location> paths, List<Location> trailEnds)
     {
         foreach (var path in paths)
         {
@@ -50,11 +52,11 @@ public static class Day10
             }
             if (searchValue == "9")
             {
-                score++;
+                trailEnds.Add(path);
             }
             else
             {
-                ProcessNextSteps(map, path.NextSteps, ref score);
+                ProcessNextSteps(map, path.NextSteps, trailEnds);
             }
         }
 

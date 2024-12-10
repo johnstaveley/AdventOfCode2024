@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Model
+﻿namespace AdventOfCode.Day10
 {
     public class Location
     {
