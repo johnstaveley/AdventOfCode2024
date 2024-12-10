@@ -1,0 +1,50 @@
+Found distinct path from 3,1 to 1,4
+Found distinct path from 3,1 to 2,1
+Found distinct path from 3,1 to 5,4
+Found distinct path from 3,1 to 5,6
+Found distinct path from 3,1 to 6,5
+5
+Found distinct path from 5,1 to 1,4
+Found distinct path from 5,1 to 2,1
+Found distinct path from 5,1 to 5,4
+Found distinct path from 5,1 to 5,6
+Found distinct path from 5,1 to 6,5
+Found distinct path from 5,1 to 6,3
+Found distinct path from 5,3 to 1,4
+Found distinct path from 5,3 to 2,1
+Found distinct path from 5,3 to 5,4
+Found distinct path from 5,3 to 5,6
+Found distinct path from 5,3 to 6,5
+11
+Found distinct path from 7,5 to 6,3
+Found distinct path from 7,5 to 5,4
+Found distinct path from 7,5 to 6,5
+3
+Found distinct path from 3,6 to 1,4
+Found distinct path from 3,6 to 2,1
+Found distinct path from 3,6 to 5,4
+Found distinct path from 3,6 to 5,6
+Found distinct path from 3,6 to 6,5
+Found distinct path from 3,6 to 5,7
+
+Found distinct path from 6,6 to 6,3
+Found distinct path from 6,6 to 5,4
+Found distinct path from 6,6 to 6,5
+
+Found distinct path from 1,7 to 1,4
+Found distinct path from 1,7 to 2,1
+Found distinct path from 1,7 to 5,4
+Found distinct path from 1,7 to 5,6
+Found distinct path from 1,7 to 6,5
+Found distinct path from 1,7 to 5,7
+
+Found distinct path from 7,7 to 6,3
+Found distinct path from 7,7 to 5,4
+Found distinct path from 7,7 to 6,5
+
+Found distinct path from 2,8 to 1,4
+Found distinct path from 2,8 to 2,1
+Found distinct path from 2,8 to 5,4
+Found distinct path from 2,8 to 5,6
+Found distinct path from 2,8 to 6,5
+Found distinct path from 2,8 to 5,7

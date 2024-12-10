@@ -34,13 +34,17 @@ public static class Day10
             }
             var allPaths = walkingPaths.SelectMany(
                 path => path.Ends, 
-                
                 (start, end) => new DistinctPath { 
                     Start = new Location { X = start.Start.X, Y = start.Start.Y },
                     End = new Location { X = end.X, Y = end.Y }
                     }
                 ).ToList();
             var distinctPaths = allPaths.DistinctBy(a => new { s1 = a.Start.X, s2 = a.Start.Y, e1 = a.End.X, e2 = a.End.Y } ).ToList();
+            
+            foreach(var distinctPath in distinctPaths.OrderBy(a => a.Start.Y).ThenBy(b => b.Start.X).ToList())
+            {
+                Console.WriteLine($"Found distinct path from {distinctPath.Start.X+1},{distinctPath.Start.Y + 1} to {distinctPath.End.X + 1},{distinctPath.End.Y + 1}");
+            }
             Console.WriteLine($"Found {paths.Count} starting points with trail count {distinctPaths.Count}");
         }
         catch (Exception ex)
@@ -61,7 +65,7 @@ public static class Day10
                     if (!map.IsOffGrid(i,j) && map.Grid[i, j] == searchValue)
                     {
                         path.NextSteps.Add(new Location { X = i, Y = j });
-                        Console.WriteLine($"Found {searchValue} at {i},{j}");
+                        //Console.WriteLine($"Found {searchValue} at {i},{j}");
                     }
                 }
             }
