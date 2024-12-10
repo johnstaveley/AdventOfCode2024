@@ -1,11 +1,12 @@
 ﻿using AdventOfCode.Day10;
 using AdventOfCode.Model;
+using System.IO;
 
 public static class Day10
 {
     public static void Execute()
     {
-        string filePath = "Day10/Test3.txt";
+        string filePath = "Day10/Test4.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -23,17 +24,31 @@ public static class Day10
                     }
                 }
             }
-            var trailEnds = new List<Location>();
-            ProcessNextSteps(map, paths, trailEnds);
-            var distinctEnds = trailEnds.DistinctBy(m => new { m.X, m.Y }).ToList();
-            Console.WriteLine($"Found {paths.Count} starting points with score {distinctEnds.Count}");
+            ProcessNextSteps(map, paths);
+            var walkingPaths = new List<WPath>();
+            foreach (var path in paths)
+            {
+                var wPath = new WPath { Start = path };
+                wPath.Ends.AddRange(FindTrailEnds(map, path.NextSteps));
+                walkingPaths.Add(wPath);
+            }
+            var allPaths = walkingPaths.SelectMany(
+                path => path.Ends, 
+                
+                (start, end) => new DistinctPath { 
+                    Start = new Location { X = start.Start.X, Y = start.Start.Y },
+                    End = new Location { X = end.X, Y = end.Y }
+                    }
+                ).ToList();
+            var distinctPaths = allPaths.DistinctBy(a => new { s1 = a.Start.X, s2 = a.Start.Y, e1 = a.End.X, e2 = a.End.Y } ).ToList();
+            Console.WriteLine($"Found {paths.Count} starting points with trail count {distinctPaths.Count}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-    public static void ProcessNextSteps(Map map, List<Location> paths, List<Location> trailEnds)
+    public static void ProcessNextSteps(Map map, List<Location> paths)
     {
         foreach (var path in paths)
         {
@@ -50,15 +65,25 @@ public static class Day10
                     }
                 }
             }
-            if (searchValue == "9")
+            if (searchValue != "9")
             {
-                trailEnds.Add(path);
-            }
-            else
-            {
-                ProcessNextSteps(map, path.NextSteps, trailEnds);
+                ProcessNextSteps(map, path.NextSteps);
             }
         }
-
+    }
+    public static List<Location> FindTrailEnds(Map map, List<Location> paths)
+    {
+        var foundEndings = new List<Location>();
+        foreach (var path in paths)
+        {
+            var currentValue = map.Grid[path.X, path.Y];
+            if (currentValue == "9")
+            {
+                foundEndings.Add(path);
+            } else {
+                foundEndings.AddRange(FindTrailEnds(map, path.NextSteps));
+            }
+        }
+        return foundEndings;
     }
 }
