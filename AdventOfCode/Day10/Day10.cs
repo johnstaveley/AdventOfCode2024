@@ -1,12 +1,11 @@
 ﻿using AdventOfCode.Day10;
 using AdventOfCode.Model;
-using System.IO;
 
 public static class Day10
 {
     public static void Execute()
     {
-        string filePath = "Day10/Test4.txt";
+        string filePath = "Day10/Input.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -33,19 +32,21 @@ public static class Day10
                 walkingPaths.Add(wPath);
             }
             var allPaths = walkingPaths.SelectMany(
-                path => path.Ends, 
-                (start, end) => new DistinctPath { 
+                path => path.Ends,
+                (start, end) => new DistinctPath
+                {
                     Start = new Location { X = start.Start.X, Y = start.Start.Y },
                     End = new Location { X = end.X, Y = end.Y }
-                    }
+                }
                 ).ToList();
-            var distinctPaths = allPaths.DistinctBy(a => new { s1 = a.Start.X, s2 = a.Start.Y, e1 = a.End.X, e2 = a.End.Y } ).ToList();
-            
-            foreach(var distinctPath in distinctPaths.OrderBy(a => a.Start.Y).ThenBy(b => b.Start.X).ToList())
+            var distinctPaths = allPaths.DistinctBy(a => new { s1 = a.Start.X, s2 = a.Start.Y, e1 = a.End.X, e2 = a.End.Y }).ToList();
+
+/*            foreach (var distinctPath in distinctPaths.OrderBy(a => a.Start.Y).ThenBy(b => b.Start.X).ToList())
             {
-                Console.WriteLine($"Found distinct path from {distinctPath.Start.X+1},{distinctPath.Start.Y + 1} to {distinctPath.End.X + 1},{distinctPath.End.Y + 1}");
-            }
-            Console.WriteLine($"Found {paths.Count} starting points with trail count {distinctPaths.Count}");
+                Console.WriteLine($"Found distinct path from {distinctPath.Start.X + 1},{distinctPath.Start.Y + 1} to {distinctPath.End.X + 1},{distinctPath.End.Y + 1}");
+            }*/
+            var totalRating = walkingPaths.Sum(a => a.Ends.Count());
+            Console.WriteLine($"Found {paths.Count} starting points with trail count {distinctPaths.Count} and total rating {totalRating}");
         }
         catch (Exception ex)
         {
@@ -58,15 +59,18 @@ public static class Day10
         {
             var currentValue = map.Grid[path.X, path.Y];
             var searchValue = (int.Parse(currentValue) + 1).ToString();
-            for (int i = path.X -1; i <= path.X+1; i++)
+            var searchLocations = new List<Location>
             {
-                for (int j = path.Y-1; j <= path.Y+1; j++)
+                new Location { X = path.X - 1, Y = path.Y },
+                new Location { X = path.X + 1, Y = path.Y },
+                new Location { X = path.X, Y = path.Y - 1 },
+                new Location { X = path.X, Y = path.Y + 1 }
+            };
+            foreach (var location in searchLocations)
+            {
+                if (!map.IsOffGrid(location.X, location.Y) && map.Grid[location.X, location.Y] == searchValue)
                 {
-                    if (!map.IsOffGrid(i,j) && map.Grid[i, j] == searchValue)
-                    {
-                        path.NextSteps.Add(new Location { X = i, Y = j });
-                        //Console.WriteLine($"Found {searchValue} at {i},{j}");
-                    }
+                    path.NextSteps.Add(new Location { X = location.X, Y = location.Y });
                 }
             }
             if (searchValue != "9")
@@ -84,7 +88,9 @@ public static class Day10
             if (currentValue == "9")
             {
                 foundEndings.Add(path);
-            } else {
+            }
+            else
+            {
                 foundEndings.AddRange(FindTrailEnds(map, path.NextSteps));
             }
         }
