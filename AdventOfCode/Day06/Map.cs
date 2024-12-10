@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode.Day06
+﻿using AdventOfCode.Utility;
+
+namespace AdventOfCode.Day06
 {
     public class Map
     {
@@ -16,6 +18,10 @@
                 }
             }
             return null;
+        }
+        public Map(string[] lines)
+        {
+            Grid = ArrayExtensions.GetGrid(lines);
         }
         public string[,] Results { get; set; }
         public bool IsOffGrid(Tuple<int, int> location)

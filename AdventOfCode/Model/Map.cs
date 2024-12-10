@@ -1,13 +1,15 @@
-﻿namespace AdventOfCode.Model
+﻿using AdventOfCode.Utility;
+
+namespace AdventOfCode.Model
 {
     public class Map
     {
         public string[,] Grid { get; set; }
         public string[,] Results { get; set; }
 
-        public Map(string[,] grid)
+        public Map(string[] lines)
         {
-            Grid = grid;
+            Grid = ArrayExtensions.GetGrid(lines);
             Results = new string[Grid.GetLength(0), Grid.GetLength(1)];
             for (int i = 0; i < Grid.GetLength(0); i++)
             {

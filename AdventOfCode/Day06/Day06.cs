@@ -10,9 +10,8 @@ public static class Day06
         {
             string[] lines = File.ReadAllLines(filePath);
             Console.WriteLine($"Read {lines.Length} lines from {filePath}");
-            var map = new Map();
+            var map = new Map(lines);
             var loopCount = 0;
-            map.Grid = ArrayExtensions.GetGrid(lines);
             for (int i = 0; i < map.Grid.GetLength(0); i++)
             {
                 for (int j = 0; j < map.Grid.GetLength(0); j++)
