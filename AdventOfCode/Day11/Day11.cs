@@ -8,13 +8,14 @@
             string[] lines = File.ReadAllLines(filePath);
             Console.WriteLine($"Read {lines.Length} lines from {filePath}");
             var numbers = lines[0].Split(' ').Select(Int64.Parse).ToList();
-            var numberOfIterations = 25;
+            var numberOfIterations = 75;
             Console.WriteLine($"Numbers {string.Join(", ", numbers)} after 0 iterations with {numbers.Count} stones");
             for (Int64 i = 0; i < numberOfIterations; i++)
             {
                 numbers = Process(numbers);
-                Console.WriteLine($"Result: {string.Join(", ", numbers)} after {i + 1} iterations with {numbers.Count} stones");
+                Console.WriteLine($"Iteration {i + 1} {numbers.Count} stones");
             }
+            Console.WriteLine($"Result: {string.Join(", ", numbers)} after {numberOfIterations} iterations with {numbers.Count} stones");
         }
         catch (Exception ex)
         {
