@@ -8,5 +8,13 @@
         {
             Points = new List<(int, int)>();
         }
+        public int GetSize()
+        {
+            return Points.Count;
+        }
+        public int GetPerimeter()
+        {
+            return 0;
+        }
     }
 }

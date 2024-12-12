@@ -7,7 +7,7 @@ public static class Day12
 {
     public static void Execute()
     {
-        string filePath = "Day12/Input.txt";
+        string filePath = "Day12/Test.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -15,6 +15,10 @@ public static class Day12
             var map = new Map(lines);
             var regions = GetRegions(map);
             Console.WriteLine($"There are {regions.Count} regions");
+            foreach (var region in regions)
+            {
+                Console.WriteLine($"Region with flower type {region.FlowerType} has {region.Points.Count} points");
+            }
         }
         catch (Exception ex)
         {
@@ -32,7 +36,8 @@ public static class Day12
                 {
                     var region = new Region()
                     {
-                        FlowerType = map.Grid[i, j]
+                        FlowerType = map.Grid[i, j],
+                        Points = new List<(int, int)> { (i, j) }
                     };
                     GetRegion(map, i, j, region);
                     regions.Add(region);
@@ -57,7 +62,7 @@ public static class Day12
             if (map.IsOffGrid(searchLocation.X, searchLocation.Y) || 
                 map.Grid[searchLocation.X, searchLocation.Y] != searchCharacter || map.Results[searchLocation.X, searchLocation.Y] != "")
             {
-                return;
+                continue;
             }
             region.Points.Add((searchLocation.X, searchLocation.Y));
             GetRegion(map, searchLocation.X, searchLocation.Y, region);
