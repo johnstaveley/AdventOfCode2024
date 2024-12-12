@@ -6,7 +6,7 @@ public static class Day12
 {
     public static void Execute()
     {
-        string filePath = "Day12/Test.txt";
+        string filePath = "Day12/Input.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -19,6 +19,8 @@ public static class Day12
                 region.Perimeter = GetPerimeter(map, region);
                 Console.WriteLine($"Region with flower type {region.FlowerType} has area {region.GetSize()} and perimeter {region.Perimeter}");
             }
+            var totalPrice = regions.Sum(s => s.GetSize() * s.Perimeter);
+            Console.WriteLine($"The total price is {totalPrice}");
         }
         catch (Exception ex)
         {
