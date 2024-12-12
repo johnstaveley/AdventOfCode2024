@@ -1,9 +1,20 @@
-﻿using AdventOfCode.Utility;
+﻿using AdventOfCode.Day10;
+using AdventOfCode.Utility;
 
 namespace AdventOfCode.Model
 {
     public class Map
     {
+        public List<Location> GetSearchLocations(int i, int j)
+        {
+            return new List<Location>
+                {
+                    new Location { X = i - 1, Y = j },
+                    new Location { X = i + 1, Y = j },
+                    new Location { X = i, Y = j - 1 },
+                    new Location { X = i, Y = j + 1 }
+                };
+        }
         public string[,] Grid { get; set; }
         public string[,] Results { get; set; }
 
@@ -23,5 +34,6 @@ namespace AdventOfCode.Model
         {
             return locationX < 0 || locationX >= Grid.GetLength(0) || locationY < 0 || locationY >= Grid.GetLength(1);
         }
+
     }
 }
