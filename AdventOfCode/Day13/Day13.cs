@@ -22,8 +22,8 @@ public static class Day13
                 machine.ButtonB.X = Int64.Parse(matchLine2.Groups[1].Value);
                 machine.ButtonB.Y = Int64.Parse(matchLine2.Groups[2].Value);
                 var matchLine3 = regex.Match(lines[i + 2]);
-                machine.Prize.X = Int64.Parse(matchLine3.Groups[1].Value) + 10000000000000;
-                machine.Prize.Y = Int64.Parse(matchLine3.Groups[2].Value) + 10000000000000;
+                machine.Prize.X = Int64.Parse(matchLine3.Groups[1].Value);// + 10000000000000;
+                machine.Prize.Y = Int64.Parse(matchLine3.Groups[2].Value);// + 10000000000000;
                 machines.Add(machine);
             }
             Console.WriteLine($"{machines.Count} machines");
@@ -34,14 +34,20 @@ public static class Day13
                 var maxPressesX = machine.Prize.X / Math.Min(machine.ButtonA.X, machine.ButtonB.X);
                 var maxPressesY = machine.Prize.Y / Math.Min(machine.ButtonA.Y, machine.ButtonB.Y);
                 var maxPresses = Math.Max(maxPressesX, maxPressesY);
+                //machine.Prize.X = a * machine.ButtonA.X + b * machine.ButtonB.X;
+                //machine.Prize.Y = a * machine.ButtonA.Y + b * machine.ButtonB.Y;
+                //var a = (machine.Prize.X - b * machine.ButtonB.X) / machine.ButtonA.X;
+                //machine.Prize.Y = (machine.Prize.X - b * machine.ButtonB.X) / machine.ButtonA.X * machine.ButtonA.Y + b * machine.ButtonB.Y;
+                //
+
                 var games = new List<Game>();
-                for (int i = 0; i < maxPresses; i++)
+                for (long numberOfPressesOfB = maxPresses; numberOfPressesOfB >= 0; numberOfPressesOfB--)
                 {
                     var game = new Game();
-                    game.NumberOfPressesA = i;
-                    for (int j = 0; j < maxPresses - i; j++)
+                    game.NumberOfPressesB = numberOfPressesOfB;
+                    for (int numberOfPressesOfA = 0; numberOfPressesOfA < maxPresses - numberOfPressesOfB; numberOfPressesOfA++)
                     {
-                        game.NumberOfPressesB = j;
+                        game.NumberOfPressesA = numberOfPressesOfA;
                         var totalX = game.NumberOfPressesA * machine.ButtonA.X + game.NumberOfPressesB * machine.ButtonB.X;
                         var totalY = game.NumberOfPressesA * machine.ButtonA.Y + game.NumberOfPressesB * machine.ButtonB.Y;
                         if (totalX == machine.Prize.X && totalY == machine.Prize.Y)
