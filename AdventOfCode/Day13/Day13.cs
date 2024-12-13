@@ -22,8 +22,8 @@ public static class Day13
                 machine.ButtonB.X = Int64.Parse(matchLine2.Groups[1].Value);
                 machine.ButtonB.Y = Int64.Parse(matchLine2.Groups[2].Value);
                 var matchLine3 = regex.Match(lines[i + 2]);
-                machine.Prize.X = Int64.Parse(matchLine3.Groups[1].Value);
-                machine.Prize.Y = Int64.Parse(matchLine3.Groups[2].Value);
+                machine.Prize.X = Int64.Parse(matchLine3.Groups[1].Value) + 10000000000000;
+                machine.Prize.Y = Int64.Parse(matchLine3.Groups[2].Value) + 10000000000000;
                 machines.Add(machine);
             }
             Console.WriteLine($"{machines.Count} machines");
@@ -49,6 +49,10 @@ public static class Day13
                             game.IsSuccess = true;
                             game.TotalCost = 3 * game.NumberOfPressesA + game.NumberOfPressesB;
                             games.Add(game);
+                            break;
+                        }
+                        if (totalX > machine.Prize.X || totalY > machine.Prize.Y)
+                        {
                             break;
                         }
                     }
