@@ -5,7 +5,7 @@ public static class Day13
 {
     public static void Execute()
     {
-        string filePath = "Day13/Input.txt";
+        string filePath = "Day13/Test.txt";
         var regex = new Regex(@"[A-Za-z ]{5,8}: X[+=]([0-9]{1,7}), Y[+=]([0-9]{1,7})");
         try
         {
@@ -16,19 +16,19 @@ public static class Day13
             {
                 var machine = new Machine();
                 var matchLine1 = regex.Match(lines[i]);
-                machine.ButtonA.X = int.Parse(matchLine1.Groups[1].Value);
-                machine.ButtonA.Y = int.Parse(matchLine1.Groups[2].Value);
+                machine.ButtonA.X = Int64.Parse(matchLine1.Groups[1].Value);
+                machine.ButtonA.Y = Int64.Parse(matchLine1.Groups[2].Value);
                 var matchLine2 = regex.Match(lines[i + 1]);
-                machine.ButtonB.X = int.Parse(matchLine2.Groups[1].Value);
-                machine.ButtonB.Y = int.Parse(matchLine2.Groups[2].Value);
+                machine.ButtonB.X = Int64.Parse(matchLine2.Groups[1].Value);
+                machine.ButtonB.Y = Int64.Parse(matchLine2.Groups[2].Value);
                 var matchLine3 = regex.Match(lines[i + 2]);
-                machine.Prize.X = int.Parse(matchLine3.Groups[1].Value);
-                machine.Prize.Y = int.Parse(matchLine3.Groups[2].Value);
+                machine.Prize.X = Int64.Parse(matchLine3.Groups[1].Value);
+                machine.Prize.Y = Int64.Parse(matchLine3.Groups[2].Value);
                 machines.Add(machine);
             }
             Console.WriteLine($"{machines.Count} machines");
 
-            var tokensSpent = 0;
+            Int64 tokensSpent = 0;
             foreach (var machine in machines)
             {
                 var maxPressesX = machine.Prize.X / Math.Min(machine.ButtonA.X, machine.ButtonB.X);

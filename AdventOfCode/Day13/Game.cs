@@ -2,9 +2,9 @@
 {
     public class Game
     {
-        public int NumberOfPressesA { get; set; }
-        public int NumberOfPressesB { get; set; }
-        public int TotalCost { get; set; }
+        public Int64 NumberOfPressesA { get; set; }
+        public Int64 NumberOfPressesB { get; set; }
+        public Int64 TotalCost { get; set; }
         public bool IsSuccess { get; set; }
     }
 }
