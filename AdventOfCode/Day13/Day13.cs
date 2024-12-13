@@ -5,8 +5,8 @@ public static class Day13
 {
     public static void Execute()
     {
-        string filePath = "Day13/Test.txt";
-        var regex = new Regex(@"[A-Za-z ]{5,8}: X[+=]([0-9]{1,6}), Y[+=]([0-9]{1,6})");
+        string filePath = "Day13/Input.txt";
+        var regex = new Regex(@"[A-Za-z ]{5,8}: X[+=]([0-9]{1,7}), Y[+=]([0-9]{1,7})");
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -27,6 +27,45 @@ public static class Day13
                 machines.Add(machine);
             }
             Console.WriteLine($"{machines.Count} machines");
+
+            var tokensSpent = 0;
+            foreach (var machine in machines)
+            {
+                var maxPressesX = machine.Prize.X / Math.Min(machine.ButtonA.X, machine.ButtonB.X);
+                var maxPressesY = machine.Prize.Y / Math.Min(machine.ButtonA.Y, machine.ButtonB.Y);
+                var maxPresses = Math.Max(maxPressesX, maxPressesY);
+                var games = new List<Game>();
+                for (int i = 0; i < maxPresses; i++)
+                {
+                    var game = new Game();
+                    game.NumberOfPressesA = i;
+                    for (int j = 0; j < maxPresses - i; j++)
+                    {
+                        game.NumberOfPressesB = j;
+                        var totalX = game.NumberOfPressesA * machine.ButtonA.X + game.NumberOfPressesB * machine.ButtonB.X;
+                        var totalY = game.NumberOfPressesA * machine.ButtonA.Y + game.NumberOfPressesB * machine.ButtonB.Y;
+                        if (totalX == machine.Prize.X && totalY == machine.Prize.Y)
+                        {
+                            game.IsSuccess = true;
+                            game.TotalCost = 3 * game.NumberOfPressesA + game.NumberOfPressesB;
+                            games.Add(game);
+                            break;
+                        }
+                    }
+                }
+                var winningGame = games.Where(g => g.IsSuccess).OrderBy(g => g.TotalCost).FirstOrDefault();
+                if (winningGame != null)
+                {
+                    Console.WriteLine($"Machine at {machine.ButtonA.X},{machine.ButtonA.Y} and {machine.ButtonB.X},{machine.ButtonB.Y} can win the prize at {machine.Prize.X},{machine.Prize.Y} with {winningGame.NumberOfPressesA} presses of button A and {winningGame.NumberOfPressesB} presses of button B at a cost of {winningGame.TotalCost}");
+                    tokensSpent += winningGame.TotalCost;
+                }
+                else
+                {
+                    Console.WriteLine($"Machine at {machine.ButtonA.X},{machine.ButtonA.Y} and {machine.ButtonB.X},{machine.ButtonB.Y} cannot win the prize at {machine.Prize.X},{machine.Prize.Y}");
+                }
+            }
+            Console.WriteLine($"Tokens spent: {tokensSpent}");
+
         }
         catch (Exception ex)
         {
