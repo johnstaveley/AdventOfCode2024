@@ -6,7 +6,7 @@ public static class Day14
 {
     public static void Execute()
     {
-        string filePath = "Day14/Test2.txt";
+        string filePath = "Day14/Input.txt";
         var regex = new Regex(@"p=([0-9]{1,3}),([0-9]{1,3}) v=([\-0-9]{1,3}),([\-0-9]{1,3})");
         try
         {
@@ -29,7 +29,7 @@ public static class Day14
                 }
             }
             Console.WriteLine($"Read {robots.Count} robots");
-            var map = new Map(7, 11, "0");
+            var map = new Map(103, 101, "0");
             var numberOfTurns = 100;
             for (int i = 0; i < numberOfTurns; i++)
             {
@@ -65,6 +65,38 @@ public static class Day14
                 map.Grid[robot.X, robot.Y] = currentRobots.ToString();
             }
             map.Display();
+            var halfWayX = map.Grid.GetLength(0) / 2;
+            var halfWayY = map.Grid.GetLength(1) / 2;
+            Console.WriteLine($"Halfway point is {halfWayX}:{halfWayY}");
+            var quadrantTopLeft = 0;
+            var quadrantTopRight = 0;
+            var quadrantBottomLeft = 0;
+            var quadrantBottomRight = 0;
+            foreach (var robot in robots)
+            {
+                if (robot.X < halfWayX && robot.Y < halfWayY)
+                {
+                    quadrantTopLeft++;
+                }
+                if (robot.X > halfWayX && robot.Y < halfWayY)
+                {
+                    quadrantTopRight++;
+                }
+                if (robot.X < halfWayX && robot.Y > halfWayY)
+                {
+                    quadrantBottomLeft++;
+                }
+                if (robot.X > halfWayX && robot.Y > halfWayY)
+                {
+                    quadrantBottomRight++;
+                }
+            }
+            Console.WriteLine($"Top left: {quadrantTopLeft}");
+            Console.WriteLine($"Top right: {quadrantTopRight}");
+            Console.WriteLine($"Bottom left: {quadrantBottomLeft}");
+            Console.WriteLine($"Bottom right: {quadrantBottomRight}");
+            var safetyFactor = quadrantTopLeft * quadrantTopRight * quadrantBottomLeft * quadrantBottomRight;
+            Console.WriteLine($"Safety factor: {safetyFactor}");
         }
         catch (Exception ex)
         {
