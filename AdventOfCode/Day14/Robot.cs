@@ -6,5 +6,10 @@
         public int Y { get; set; }
         public int VX { get; set; }
         public int VY { get; set; }
+        public void Move()
+        {
+            X += VX;
+            Y += VY;
+        }
     }
 }
