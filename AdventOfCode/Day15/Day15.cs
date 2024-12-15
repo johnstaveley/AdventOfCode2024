@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Model;
+﻿using AdventOfCode.Day15;
+using AdventOfCode.Model;
 
 public static class Day15
 {
@@ -15,7 +16,15 @@ public static class Day15
             map.Display();
             var movementLines = string.Join("", lines.Where(a => a.Contains("<") || a.Contains(">")).ToArray());
             var movements = movementLines.ToArray().ToList();
-            Console.WriteLine(movements.Count);
+            var robot = new Robot();
+            robot.FindInitialLocation(map.Grid);
+            Console.WriteLine($"Initial location: {robot.X+1}, {robot.Y+1}");
+            for (int i = 0; i < movements.Count; i++)
+            {
+                robot.Move(movements[i].ToString(), map);
+                map.Display();
+                Console.WriteLine();
+            }
         }
         catch (Exception ex)
         {
