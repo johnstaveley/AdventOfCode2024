@@ -26,7 +26,7 @@ namespace AdventOfCode.Day15
             var dx = 0;
             var dy = 0;
             var grid = map.Grid;
-            Console.WriteLine($"Moving {movement}");
+            //Console.WriteLine($"Moving {movement}");
             switch (movement)
             {
                 case "^":
@@ -45,7 +45,7 @@ namespace AdventOfCode.Day15
             var nextLocation = grid[X + dx, Y + dy];
             if (nextLocation == "#")
             {
-                Console.WriteLine($"Can't move to {X + dx + 1}, {Y + dy + 1}");
+                //Console.WriteLine($"Can't move to {X + dx + 1}, {Y + dy + 1}");
                 return;
             }
             if (nextLocation == ".")
@@ -54,7 +54,7 @@ namespace AdventOfCode.Day15
                 X += dx;
                 Y += dy;
                 grid[X, Y] = "@";
-                Console.WriteLine($"Moved to {X + 1}, {Y + 1}");
+                //Console.WriteLine($"Moved to {X + 1}, {Y + 1}");
                 return;
             }
             var maxPush = Math.Max(grid.GetLength(0), grid.GetLength(1));
@@ -90,10 +90,10 @@ namespace AdventOfCode.Day15
                 X += dx;
                 Y += dy;
                 grid[X, Y] = "@";
-                Console.WriteLine($"Pushed at {X + 1}, {Y + 1}");
+                //Console.WriteLine($"Pushed at {X + 1}, {Y + 1}");
             } else
             {
-                Console.WriteLine($"Can't move");
+                //Console.WriteLine($"Can't move");
             }
         }
     }
