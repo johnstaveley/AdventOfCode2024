@@ -28,9 +28,17 @@ public static class Day16
     {
         map.GetSearchLocations(location.Item1, location.Item2).ForEach(l =>
         {
-            if (map.Grid[l.X, l.Y] == "#" || map.Results[l.X, l.Y] != "")
+            if (map.Grid[l.X, l.Y] == "#" || map.Grid[l.X, l.Y] == "S")
             {
                 return;
+            }
+            if (!string.IsNullOrEmpty(map.Results[l.X, l.Y]))
+            {
+                var currentResult = int.Parse(map.Results[l.X, l.Y]);
+                if (currentResult > 0 && currentResult <= currentDistance)
+                {
+                    return;
+                }
             }
             map.Results[l.X, l.Y] = currentDistance.ToString();
             if (map.Grid[l.X, l.Y] == "E")
