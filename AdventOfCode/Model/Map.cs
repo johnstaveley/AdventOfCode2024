@@ -57,5 +57,19 @@ namespace AdventOfCode.Model
                 Console.WriteLine();
             }
         }
+        public (int,int) Find(string target)
+        {
+            for (int i = 0; i < Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < Grid.GetLength(1); j++)
+                {
+                    if (Grid[i, j] == target)
+                    {
+                        return (i, j);
+                    }
+                }
+            }
+            return (-1, -1);
+        }
     }
 }
