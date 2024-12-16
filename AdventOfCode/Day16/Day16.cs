@@ -15,7 +15,11 @@ public static class Day16
             var startLocation = map.FindFirst("S");
             Console.WriteLine($"Robot is at {startLocation.Item1+1}:{startLocation.Item2+1}");
             map.Results[startLocation.Item1, startLocation.Item2] = "00";
-            FindPaths(map, startLocation, 1, 0, DirectionEnum.East);
+            var pathTravelled = new List<(int, int)>()
+            {
+                (startLocation.Item1, startLocation.Item2)
+            };
+            FindPaths(map, startLocation, 1, 0, DirectionEnum.East, pathTravelled);
             map.DisplayResults("** ");
         }
         catch (Exception ex)
@@ -23,7 +27,8 @@ public static class Day16
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-    public static void FindPaths(Map map, (int, int) location, int currentDistance, int numberOfTurns, DirectionEnum currentlyFacing)
+    public static void FindPaths(Map map, (int, int) location, int currentDistance, int numberOfTurns, DirectionEnum currentlyFacing, 
+        List<(int, int)> pathTravelled)
     {
         map.GetSearchLocations(location.Item1, location.Item2).ForEach(l =>
         {
@@ -31,15 +36,12 @@ public static class Day16
             {
                 return;
             }
-            if (!string.IsNullOrEmpty(map.Results[l.X, l.Y]))
+            if (pathTravelled.Contains((l.X, l.Y)))
             {
-                var currentResult = int.Parse(map.Results[l.X, l.Y]);
-                if (currentResult > 0 && currentResult <= currentDistance)
-                {
-                    return;
-                }
+                return;
             }
             map.Results[l.X, l.Y] = currentDistance.ToString();
+            pathTravelled.Add((l.X, l.Y));
             if (map.Grid[l.X, l.Y] == "E")
             {
                 var finalScore = numberOfTurns * 1000 + currentDistance;
@@ -63,14 +65,14 @@ public static class Day16
             {
                 nextDirection = DirectionEnum.East;
             }
-            // If you have to turn then add 1000 to score
             if (currentlyFacing != nextDirection)
             {
                 numberOfTurns ++;
                 currentlyFacing = nextDirection;
                 Console.WriteLine($"Turned to face {nextDirection} at {l.X}:{l.Y} after {currentDistance} steps {numberOfTurns} turns");
             }
-            FindPaths(map, (l.X, l.Y), currentDistance + 1, numberOfTurns, currentlyFacing);
+            var newPathTravelled = new List<(int, int)>(pathTravelled);
+            FindPaths(map, (l.X, l.Y), currentDistance + 1, numberOfTurns, currentlyFacing, newPathTravelled);
         });
     }
 }
