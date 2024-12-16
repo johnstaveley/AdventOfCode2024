@@ -57,7 +57,25 @@ namespace AdventOfCode.Model
                 Console.WriteLine();
             }
         }
-        public (int,int) Find(string target)
+        public void DisplayResults(string blank)
+        {
+            for (int j = 0; j < Results.GetLength(1); j++)
+            {
+                for (int i = 0; i < Results.GetLength(0); i++)
+                {
+                    if (Results[i, j] == "")
+                    {
+                        Console.Write(blank);
+                    }
+                    else
+                    {
+                        Console.Write(string.Format("{0:NN} ", Results[i, j]));
+                    }                    
+                }
+                Console.WriteLine();
+            }
+        }
+        public (int,int) FindFirst(string target)
         {
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
@@ -70,6 +88,17 @@ namespace AdventOfCode.Model
                 }
             }
             return (-1, -1);
+        }
+        public void InitialiseResultsGrid(string initial = "")
+        {
+            Results = new string[Grid.GetLength(0), Grid.GetLength(1)];
+            for (int i = 0; i < Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < Grid.GetLength(1); j++)
+                {
+                    Results[i, j] = initial;
+                }
+            }
         }
     }
 }
