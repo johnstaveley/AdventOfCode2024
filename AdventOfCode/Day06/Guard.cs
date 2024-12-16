@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode.Model;
+using System;
 
 namespace AdventOfCode.Day06
 {
