@@ -69,7 +69,7 @@ namespace AdventOfCode.Model
                     }
                     else
                     {
-                        Console.Write(string.Format("{0:NN} ", Results[i, j]));
+                        Console.Write(int.Parse(Results[i, j]).ToString("D2") + " ");
                     }                    
                 }
                 Console.WriteLine();
