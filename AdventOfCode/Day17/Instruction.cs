@@ -33,5 +33,25 @@
                 }
             }
         }
+        public int GetCombo(int registerA, int registerB, int registerC)
+        {
+                switch (Operand)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        return Operand;
+                    case 4:
+                        return registerA;
+                    case 5:
+                        return registerB;
+                    case 6:
+                        return registerC;
+                    default:
+                        return -1;
+                }
+            }
+        }
     }
 }

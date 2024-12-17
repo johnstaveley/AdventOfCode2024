@@ -22,7 +22,19 @@ public static class Day17
             List<Instruction> program = new List<Instruction>();
             for (int i = 0; i < values.Count; i += 2)
             {
-                program.Add(new Instruction(values[i], values[i + 1]));
+                var instruction = new Instruction(values[i], values[i + 1]);
+                program.Add(instruction);
+                Console.WriteLine($"OpCode: {instruction.OpCode}, Operand: {instruction.Operand}, Operation: {instruction.Operation}");
+                switch (instruction.Operation)
+                {
+                    case "adv":
+                        registerA = (int) (instruction.Operand / instruction.GetCombo(registerA, registerB, registerC));
+                        break;
+                    case "bxl":
+                        registerB =  registerB ^ instruction.Operand;
+                        break;
+
+                }
             }
             Console.WriteLine($"Program has {program.Count()} instructions");
         }
