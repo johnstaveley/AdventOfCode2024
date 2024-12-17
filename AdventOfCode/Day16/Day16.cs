@@ -5,7 +5,7 @@ public static class Day16
 {
     public static void Execute()
     {
-        string filePath = "Day16/test.txt";
+        string filePath = "Day16/test3.txt";
         try
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -72,7 +72,7 @@ public static class Day16
             {
                 numberOfTurns++;
                 currentlyFacing = nextDirection;
-                //Console.WriteLine($"Turned to face {nextDirection} at {l.X}:{l.Y} after {currentDistance} steps {numberOfTurns} turns");
+                Console.WriteLine($"Turned to face {nextDirection} at {location.Item1+1}:{location.Item2+1}. Total {numberOfSteps-1} steps {numberOfTurns} turns");
             }
             var newPathTravelled = new List<Location>();
             foreach (var item in pathTravelled)
