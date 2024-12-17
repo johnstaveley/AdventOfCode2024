@@ -49,6 +49,10 @@ public static class Day16
                 // Found exit
                 var finalScore = numberOfTurns * 1000 + numberOfSteps;
                 Console.WriteLine($"Exit found at {nextStep.X + 1}:{nextStep.Y + 1} after {numberOfSteps} steps {numberOfTurns} turns and with a score of {finalScore}");
+                foreach (var item in pathTravelled)
+                {
+                    Console.WriteLine($"Path to exit is {item.X + 1}:{item.Y + 1}");
+                }
                 return;
             }
             var nextDirection = DirectionEnum.North;
