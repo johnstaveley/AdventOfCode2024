@@ -14,7 +14,7 @@ public static class Day16
             map.Display();
             map.InitialiseResultsGrid();
             var startLocation = map.FindFirst("S");
-            Console.WriteLine($"Robot is at {startLocation.Item1+1}:{startLocation.Item2+1}");
+            Console.WriteLine($"Robot is at {startLocation.Item1 + 1}:{startLocation.Item2 + 1}");
             map.Results[startLocation.Item1, startLocation.Item2] = "00";
             var pathTravelled = new List<Location>()
             {
@@ -30,17 +30,18 @@ public static class Day16
     public static void FindPaths(Map map, (int, int) location, int numberOfSteps, int numberOfTurns, DirectionEnum currentlyFacing,
         List<Location> pathTravelled)
     {
-        map.GetSearchLocations(location.Item1, location.Item2).ForEach(nextStep =>
+        var searchLocations = map.GetSearchLocations(location.Item1, location.Item2);
+        foreach (var nextStep in searchLocations)
         {
             if (map.Grid[nextStep.X, nextStep.Y] == "#" || map.Grid[nextStep.X, nextStep.Y] == "S")
             {
                 // Hit a wall or the start location
-                return;
+                continue;
             }
             if (pathTravelled.Any(a => a.X == nextStep.X && a.Y == nextStep.Y))
             {
                 // Already been here
-                return;
+                continue;
             }
             pathTravelled.Add(new Location { X = nextStep.X, Y = nextStep.Y });
             numberOfSteps++;
@@ -53,7 +54,7 @@ public static class Day16
                 {
                     Console.WriteLine($"Path to exit is {item.X + 1}:{item.Y + 1}");
                 }
-                return;
+                continue;
             }
             var nextDirection = DirectionEnum.North;
             if (nextStep.Y < location.Item2)
@@ -70,13 +71,13 @@ public static class Day16
             }
             if (nextStep.X > location.Item1)
             {
-                nextDirection = DirectionEnum.East; 
+                nextDirection = DirectionEnum.East;
             }
             if (currentlyFacing != nextDirection)
             {
                 numberOfTurns++;
                 currentlyFacing = nextDirection;
-                Console.WriteLine($"Turned to face {nextDirection} at {location.Item1+1}:{location.Item2+1}. Total {numberOfSteps-1} steps {numberOfTurns} turns");
+                Console.WriteLine($"Turned to face {nextDirection} at {location.Item1 + 1}:{location.Item2 + 1}. Total {numberOfSteps - 1} steps {numberOfTurns} turns");
             }
             var newPathTravelled = new List<Location>();
             foreach (var item in pathTravelled)
@@ -84,6 +85,6 @@ public static class Day16
                 newPathTravelled.Add(new Location { X = item.X, Y = item.Y });
             }
             FindPaths(map, (nextStep.X, nextStep.Y), numberOfSteps, numberOfTurns, currentlyFacing, newPathTravelled);
-        });
+        }
     }
 }
